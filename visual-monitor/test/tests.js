@@ -1,6 +1,7 @@
 'use strict';
 
 var shoovWebdrivercss = require('shoov-webdrivercss');
+var projectName = 'unfpa-lac';
 
 // This can be executed by passing the environment argument like this:
 // PROVIDER_PREFIX=browserstack SELECTED_CAPS=chrome mocha
@@ -9,6 +10,7 @@ var shoovWebdrivercss = require('shoov-webdrivercss');
 
 var capsConfig = {
   'chrome': {
+    project: projectName,
     'browser' : 'Chrome',
     'browser_version' : '42.0',
     'os' : 'OS X',
@@ -16,6 +18,7 @@ var capsConfig = {
     'resolution' : '1024x768'
   },
   'ie11': {
+    project: projectName,
     'browser' : 'IE',
     'browser_version' : '11.0',
     'os' : 'Windows',
@@ -61,10 +64,108 @@ describe('Visual monitor testing', function() {
   it('should show the home page',function(done) {
     client
       .url(baseUrl)
+      .pause(2000)
       .webdrivercss(testName + '.homepage', {
         name: '1',
-        exclude: [],
-        remove: [],
+        exclude:
+          [
+            // Carousel.
+            '.carousel',
+            '.slider-for',
+            '.slick-track a img',
+            // Video.
+            '.views-field-field-video',
+            '.videos-home-sub-list img',
+            // Publications.
+            '.pane-vw-publications img',
+            // Side banners.
+            '.side_banners a',
+            // News image.
+            '.news-img',
+          ],
+        remove:
+          [
+            // News.
+            '.news-body',
+            // Publications.
+            '.pane-vw-publications .title',
+            '.pane-vw-publications .summary',
+            '.views-field-title'
+          ],
+        hide: [],
+        screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
+      }, resultsCallback)
+      .call(done);
+  });
+
+  it('should show the news page',function(done) {
+    client
+      .url(baseUrl + '/news')
+      .webdrivercss(testName + '.news', {
+        name: '1',
+        exclude:
+          [
+            // Article.
+            '.item img',
+          ],
+        remove:
+          [
+            // Date and news type.
+            '.left',
+            // Article
+            '.item .right',
+            // Video
+            '.views-field-title'
+          ],
+        hide: [],
+        screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
+      }, resultsCallback)
+      .call(done);
+  });
+
+  it('should show the publications page',function(done) {
+    client
+      .url(baseUrl + '/publications')
+      .webdrivercss(testName + '.publications', {
+        name: '1',
+        exclude:
+          [
+            // Article.
+            '.left img',
+          ],
+        remove:
+          [
+            // Article.
+            '.right .title',
+            '.right p',
+            '#stcpDiv',
+          ],
+        hide: [],
+        screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
+      }, resultsCallback)
+      .call(done);
+  });
+
+  it('should show the videos page',function(done) {
+    client
+      .url(baseUrl + '/videos')
+      .webdrivercss(testName + '.videos', {
+        name: '1',
+        exclude:
+          [
+            // Main video.
+            '.player .video-wrap',
+            // Video thumbnail.
+            '.view-id-vw_video img'
+          ],
+        remove:
+          [
+            // Social.
+            '.stBubble',
+            // Video thumbnail.
+            '.view-id-vw_video h3',
+            '.view-id-vw_video .pub-date'
+          ],
         hide: [],
         screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
       }, resultsCallback)
