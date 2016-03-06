@@ -86,7 +86,7 @@ describe('Visual monitor testing', function() {
         remove:
           [
             // News.
-            '.news-body',
+            '#block-views-vw-news-block-home-news .content',
             // Publications.
             '.pane-vw-publications .title',
             '.pane-vw-publications .summary',
