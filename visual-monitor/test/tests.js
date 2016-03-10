@@ -82,15 +82,18 @@ describe('Visual monitor testing', function() {
             '.side_banners a',
             // News image.
             '.news-img',
+            // Publication.
+            '#block-views-7b86692f8627a684fe415812a0bdf8b4 img',
           ],
         remove:
           [
             // News.
             '#block-views-vw-news-block-home-news .content',
             // Publications.
-            '.pane-vw-publications .title',
-            '.pane-vw-publications .summary',
-            '.views-field-title'
+            '#block-views-7b86692f8627a684fe415812a0bdf8b4 .title',
+            '#block-views-7b86692f8627a684fe415812a0bdf8b4 .summary',
+            '.views-field-title',
+
           ],
         hide: [],
         screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
