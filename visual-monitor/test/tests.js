@@ -93,6 +93,7 @@ describe('Visual monitor testing', function() {
             '#block-views-7b86692f8627a684fe415812a0bdf8b4 .title',
             '#block-views-7b86692f8627a684fe415812a0bdf8b4 .summary',
             '.views-field-title',
+            '.date-display-single'
 
           ],
         hide: [],
